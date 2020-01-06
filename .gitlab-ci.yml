@@ -1,0 +1,45 @@
+stages:
+  - preparation
+  - compile
+  - postcompile
+
+send_SCSE:
+  stage: preparation
+  tags:
+    - gitlab_runner
+  script:
+    - echo "Send Source Change Submited Event"
+  only:
+    - master
+
+send_SCCE:
+  stage: preparation
+  tags:
+    - gitlab_runner
+  script:
+    - echo "Send Source Change Created Event"
+  except:
+    - master
+
+compile_target:
+  stage: compile
+  tags:
+    - gitlab_runner
+  script:
+    - echo "Compiling sub module2"
+
+unittests:
+  stage: compile
+  tags:
+    - gitlab_runner
+  script:
+    - echo Running unit tests for submodule2"
+
+send_CLME:
+  stage: postcompile
+  tags:
+    - gitlab_runner
+  script:
+    - echo "Send Confidence Level Modified Event"
+  only:
+    - master
